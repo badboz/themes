@@ -12,38 +12,38 @@
     
     $(window).on('keyup', function (event) {
         if (event.keyCode === 27) {
-            var data = $('.mspopup').data('mspopup');
+            var data = $('.popup').data('popup');
             if (data.options.closable) {
-                $('.mspopup').mspopup('hide');
+                $('.popup').popup('hide');
             }
         }
     });
 
-    $(document).on('click', '.mspopup', function () {
-        var data = $(this).data('mspopup');
+    $(document).on('click', '.popup', function () {
+        var data = $(this).data('popup');
         if (data.options.closable) {
-            $(this).mspopup('hide');
+            $(this).popup('hide');
         }
     });
 
-    $(document).on('click', '.mspopup .mspopup-container', function (event) {
+    $(document).on('click', '.popup .popup-container', function (event) {
         event.stopPropagation();
     });
     
-    $(document).on('click', '[data-dismiss="mspopup"]', function () {
-        $(this).parent().parent().parent().mspopup('hide');
+    $(document).on('click', '[data-dismiss="popup"]', function () {
+        $(this).parent().parent().parent().popup('hide');
     });
 
-    $(document).on('click', '[mspopup-target]', function () {
-        $($(this).attr('mspopup-target')).mspopup('show');
+    $(document).on('click', '[popup-target]', function () {
+        $($(this).attr('popup-target')).popup('show');
     });
 
-    var mspopup = function (element, options) {
+    var popup = function (element, options) {
         this.options = options;
         this.$element = $(element);
     };
 
-    mspopup.prototype = {
+    popup.prototype = {
         width: function () {
 
             
@@ -65,7 +65,7 @@
         
         constructor: function () {
             var _this = this,
-                container = this.$element.find('.mspopup-container');
+                container = this.$element.find('.popup-container');
                 
             if (this.options.autoOpen) {
                 this.show();
@@ -91,17 +91,17 @@
         }
     };
 
-    var old = $.fn.mspopup;
+    var old = $.fn.popup;
 
-    $.fn.mspopup = function (option, value) {
+    $.fn.popup = function (option, value) {
         var get = '',
             element = this.each(function () {
                 var $this = $(this),
-                    data = $this.data('mspopup'),
-                    options = $.extend({}, $.fn.mspopup.defaults, option, typeof option === 'object' && option);
+                    data = $this.data('popup'),
+                    options = $.extend({}, $.fn.popup.defaults, option, typeof option === 'object' && option);
 
                 if (!data) {
-                    $this.data('mspopup', (data = new mspopup(this, options)));
+                    $this.data('popup', (data = new popup(this, options)));
                     data.constructor();
                 }
 
@@ -117,7 +117,7 @@
         }
     };
 
-    $.fn.mspopup.defaults = {
+    $.fn.popup.defaults = {
         'width': 500,
         'closable': true,
         'autoOpen': false,
@@ -125,8 +125,8 @@
         'onClose': function () {}
     };
 
-    $.fn.mspopup.noConflict = function () {
-        $.fn.mspopup = old;
+    $.fn.popup.noConflict = function () {
+        $.fn.popup = old;
         return this;
     };
 })(window.jQuery);
